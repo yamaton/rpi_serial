@@ -15,7 +15,7 @@ import itertools
 import serial
 
 DEFAULT_FPS = 30
-BAUD_RATE = 9600
+BAUD_RATE = 115200
 
 
 def parse_args():
