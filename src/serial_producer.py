@@ -36,6 +36,9 @@ def gen_lines(filepath, with_header=True):
     with open(filepath, "r") as f:
         lines = [line.strip() for line in f.readlines()]
 
+    if not lines:
+        raise ValueError("The file is empty")
+
     if with_header:
         yield lines[0]
         lines = lines[1:]
