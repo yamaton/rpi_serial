@@ -4,7 +4,11 @@
 Loads a local text file and keeps write it out to serial port repeatedly.
 
 ## Usage
+
+Run following in Raspberry Pi
+```shell
 $ python serial_producer.py <local_text_file> --with_header
+```
 
 With `--with_header` the stream shows the header line only once.
 
