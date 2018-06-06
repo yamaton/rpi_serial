@@ -3,6 +3,10 @@
 
 Loads a local text file and keeps write it out to serial port repeatedly.
 
+## Requirements
+
+- pyserial
+
 ## Usage
 
 Run following in Raspberry Pi
@@ -63,7 +67,7 @@ def main():
     )
 
     args = parse_args()
-    lines = gen_lines(args.filepath, with_header=args.with_header)
+    lines = gen_lines(args.file_path, with_header=args.with_header)
     interval_sec = 1 / args.fps
 
     for line in lines:
