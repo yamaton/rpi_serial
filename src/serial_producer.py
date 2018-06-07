@@ -40,7 +40,7 @@ def parse_args():
     return args
 
 
-def gen_lines(filepath, with_header=True):
+def gen_infinite_lines(filepath, with_header=True):
     with open(filepath, "r") as f:
         lines = [line.strip() for line in f.readlines()]
 
@@ -56,23 +56,23 @@ def gen_lines(filepath, with_header=True):
 
 
 def main():
+    args = parse_args()
+    lines = gen_infinite_lines(args.file_path, with_header=args.with_header)
+    interval_sec = 1 / args.fps
 
-    ser = serial.Serial(
+    with serial.Serial(
         port="/dev/ttyAMA0",
         baudrate=BAUD_RATE,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
         bytesize=serial.EIGHTBITS,
         timeout=1,
-    )
+    ) as ser:
 
-    args = parse_args()
-    lines = gen_lines(args.file_path, with_header=args.with_header)
-    interval_sec = 1 / args.fps
-
-    for line in lines:
-        ser.write(line)
-        time.sleep(interval_sec)
+        for line in lines:
+            line = str.encode(line + "\n")
+            ser.write(line)
+            time.sleep(interval_sec)
 
 
 if __name__ == "__main__":
